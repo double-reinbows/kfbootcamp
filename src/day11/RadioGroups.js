@@ -1,6 +1,7 @@
 // @flow
 import React, {Component} from 'react';
 import RadioGroup from './RadioGroup';
+import RadioButton from './RadioButton';
 import update from 'immutability-helper';
 
 type Props = {};
@@ -9,7 +10,6 @@ type RadioGroupObj = {
   choices: Array<string>,
   selectedIndex: number | null,
   name: string,
-  // ref: mixed,
 };
 
 type State = {
@@ -26,7 +26,7 @@ export default class RadioGroups extends Component<Props, State> {
         selectedIndex: null,
         name: 'colours',
       },
-      {choices: ['soccer', 'badminton', 'equestrian', 'water polo'],
+      {choices: ['soccer', 'badminton', 'equestrian', 'water polo', 'ballet'],
         selectedIndex: null,
         name: 'sports',
       },
@@ -51,13 +51,25 @@ export default class RadioGroups extends Component<Props, State> {
     console.log(newState);
     this.setState(newState);
   };
+  _radioButtons(choices: Array<string>) {
+    return choices.map((item, index) => {
+      return (
+        <RadioButton key={index}>
+          {item}
+        </RadioButton>
+      );
+    });
+  }
 
   render() {
     let {radioGroups} = this.state;
+
     let _radioGroup = radioGroups.map((item, index) => {
       return (
-        <RadioGroup choices={item.choices} selectedIndex={item.selectedIndex} key={index}
-          name={item.name} radioGroupKey={index} onChange={this.radioButtonSelected}/>
+        <RadioGroup choices={item.choices} selectedIndex={item.selectedIndex}
+          name={item.name} radioGroupKey={index} onChange={this.radioButtonSelected}>
+          {this._radioButtons(item.choices)}
+        </RadioGroup>
       );
     });
     return (
