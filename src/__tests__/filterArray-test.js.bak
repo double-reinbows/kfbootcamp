@@ -1,0 +1,13 @@
+// @flow
+/* eslint-disable brace-style */
+
+import filterArray from '../day5/filterArray';
+
+it('test shit', () => {
+  let input = [0, 1, 2];
+  let fn = (item) => item > 0 ? true : false;
+  expect(filterArray(input, fn)).toEqual([1, 2]);
+  input = ['hi', '', 'herp'];
+  fn = (item) => item.length > 0 ? true : false;
+  expect(filterArray(input, fn)).toEqual(['hi', 'herp']);
+});

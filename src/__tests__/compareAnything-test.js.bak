@@ -1,0 +1,110 @@
+import compareAnything from '../compareAnything';
+
+it('should consider empty objects to be equal', () => {
+  let result = compareAnything({}, {});
+  expect(result).toEqual(true);
+});
+
+it('should consider objects with same keys but different order to be equal', () => {
+  let result = compareAnything({one: 1, two: 2}, {two: 2, one: 1});
+  expect(result).toEqual(true);
+});
+
+it('should consider objects with different keys to be different', () => {
+  let result = compareAnything(
+    {one: 1, two: undefined},
+    {one: 1, three: 3},
+  );
+  expect(result).toEqual(false);
+});
+
+it('should consider two identical strings the same', () => {
+  let result = compareAnything('herp', 'herp');
+  expect(result).toEqual(true);
+});
+
+it('should consider two different strings different', () => {
+  let result = compareAnything('herp', 'derp');
+  expect(result).toEqual(false);
+});
+
+it('should consider two different arrays different', () => {
+  let result = compareAnything([1, 2, 3], [3, 2, 1]);
+  expect(result).toEqual(false);
+});
+
+it('should consider 2 identical arrays, the same', () => {
+  let result = compareAnything([1, 2], [1, 2]);
+  expect(result).toEqual(true);
+});
+
+it('should 2 different sized arrays different', () => {
+  let result = compareAnything([1, 2], [1, 2, 3]);
+  expect(result).toEqual(false);
+});
+
+it('should consider 2 different types different', () => {
+  let result = compareAnything(1, '1');
+  expect(result).toEqual(false);
+});
+
+it('should consider 2 nulls the same', () => {
+  let result = compareAnything(null, null);
+  expect(result).toEqual(true);
+});
+
+it('should consider 2 undefined the same', () => {
+  let result = compareAnything(undefined, undefined);
+  expect(result).toEqual(true);
+});
+
+it('should consider null and primitive different', () => {
+  let result = compareAnything(null, '1');
+  expect(result).toEqual(false);
+});
+
+it('should consider null and primitive different (reverse)', () => {
+  let result = compareAnything('1', null);
+  expect(result).toEqual(false);
+});
+
+it('should consider undefined and primitive different (reverse)', () => {
+  let result = compareAnything('1', undefined);
+  expect(result).toEqual(false);
+});
+
+it('should consider undefined and primitive different', () => {
+  let result = compareAnything(undefined, '1');
+  expect(result).toEqual(false);
+});
+
+it('should consider null and non-primitive else different', () => {
+  let result = compareAnything(null, [1, 2]);
+  expect(result).toEqual(false);
+});
+
+it('should consider null and non-primitive else different (reverse)', () => {
+  let result = compareAnything([1, 2], null);
+  expect(result).toEqual(false);
+});
+
+// Simon's tests
+it('should compare different types', () => {
+  expect(compareAnything(1, '1')).toEqual(false);
+  expect(compareAnything(1, undefined)).toEqual(false);
+  expect(compareAnything([1], ['1'])).toEqual(false);
+  expect(compareAnything([], {})).toEqual(false);
+  expect(compareAnything({}, null)).toEqual(false);
+});
+
+it('should compare same types', () => {
+  expect(compareAnything(1, 1)).toEqual(true);
+  expect(compareAnything(1, 2)).toEqual(false);
+  expect(compareAnything('1', '1')).toEqual(true);
+  expect(compareAnything('1', '11')).toEqual(false);
+  expect(compareAnything({}, {})).toEqual(true);
+  expect(compareAnything([], [])).toEqual(true);
+  // expect(compareAnything({one: [1, 2]}, {one: [1, 2]})).toEqual(true);
+  expect(compareAnything({one: [1, 2]}, {one: [1, 2, 3]})).toEqual(false);
+  expect(compareAnything({one: 1, two: undefined}, {one: 1, three: 3})).toEqual(false);
+});

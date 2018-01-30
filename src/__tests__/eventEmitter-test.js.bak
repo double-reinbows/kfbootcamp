@@ -1,0 +1,16 @@
+// @flow
+
+import MyEventEmitter from '../day5/eventEmitter';
+
+it('test shit', () => {
+  let emitter = new MyEventEmitter();
+  let a = 0;
+  emitter.addListener('userLoggedIn', () => {
+    a++;
+  });
+  emitter.addListener('userLoggedIn', () => {
+    a++;
+  });
+  emitter.emit('userLoggedIn');
+  expect(a).toEqual(1);
+});

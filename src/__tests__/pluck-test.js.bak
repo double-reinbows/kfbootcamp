@@ -1,0 +1,10 @@
+import pluck from '../pluck';
+
+it('should pluck values', () => {
+  let people = [
+    {name: 'Simon', age: 36},
+    {name: 'Paul', age: 33},
+    {name: 'Nixon', age: 3},
+  ];
+  expect(pluck(people, 'name')).toEqual(['Simon', 'Paul', 'Nixon']);
+});

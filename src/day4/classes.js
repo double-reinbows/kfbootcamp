@@ -1,0 +1,7 @@
+// @flow
+
+class Counter {
+  constructor() {
+
+  }
+}

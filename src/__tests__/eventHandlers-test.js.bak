@@ -1,0 +1,9 @@
+// @flow
+
+import eventHandlers from '../eventHandlers';
+
+it('should do nothing if no item with that id exists', () => {
+  let state = {todoItems: []};
+  let newState = eventHandlers.toggleDone(state, '0');
+  expect(newState).toEqual({todoItems: []});
+});

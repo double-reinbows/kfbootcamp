@@ -1,0 +1,31 @@
+/* eslint */
+
+import DataStore from '../day4/dataStore';
+
+it('test shit', () => {
+  let dataStore = new DataStore();
+  dataStore.set('Bananas', 1);
+  dataStore.set('Apples', 10);
+  dataStore.set('Misc.', [2, 3]);
+  // dataStore.set('Misc.2', ['2', 3]); //how to do dis
+  expect(dataStore.get('Bananas')).toEqual(1);
+  expect(dataStore.get('Apples')).toEqual(10);
+  expect(dataStore.get('Misc.')).toEqual([2, 3]);
+  expect(dataStore.get('Derps')).toEqual(undefined);
+  dataStore.forEach((x) => {return x + 1;});
+  expect(dataStore.get('Bananas')).toEqual(2);
+  expect(dataStore.get('Apples')).toEqual(11);
+  expect(dataStore.get('Misc.')).toEqual([3, 4]);
+  // expect(dataStore.get('Misc.2')).toEqual([3, 4]);
+});
+
+it('mock functions', () => {
+  let dataStore = new DataStore();
+  dataStore.set('Bananas', 1);
+  dataStore.set('Apples', 10);
+  dataStore.set('Misc.', [2, 3]);
+  let mockFunction = jest.fn();
+  dataStore.forEach(mockFunction);
+  expect(mockFunction.mock.calls.length).toEqual(3);
+  expect(mockFunction.mock.calls[0]).toEqual(['Bananas', 1]); //first time mockFunction is called, I expect it to receive 'Bananas', 1 as inputs
+});

@@ -1,0 +1,28 @@
+import createCallLog from '../day3/createCallLog';
+
+it('reject bad call type', () => {
+  let call = createCallLog();
+  expect(call.add('HERP', 1234)).toEqual(undefined);
+});
+
+it('add incoming call', () => {
+  let call = createCallLog();
+  let dt = new Date();
+  call.add('INCOMING', 1234);
+  expect(call.getRecent('INCOMING', 1)).toEqual([{type: 'INCOMING', phoneNumber: 1234, timestamp: dt.toUTCString()}]);
+  expect(call.getRecent('INCOMING', 1)).isAn(Array);
+});
+
+it('add outgoing call', () => {
+  let call = createCallLog();
+  let dt = new Date();
+  call.add('OUTGOING', 1234);
+  expect(call.getRecent('OUTGOING', 1)).toEqual([{type: 'OUTGOING', phoneNumber: 1234, timestamp: dt.toUTCString()}]);
+});
+
+it('add missed call', () => {
+  let call = createCallLog();
+  let dt = new Date();
+  call.add('MISSED', 1234);
+  expect(call.getRecent('MISSED', 1)).toEqual([{type: 'MISSED', phoneNumber: 1234, timestamp: dt.toUTCString()}]);
+});

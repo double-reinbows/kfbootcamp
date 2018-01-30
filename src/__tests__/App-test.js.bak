@@ -1,0 +1,7 @@
+// @flow
+import renderApp from '../App';
+
+it('Should render state into view', () => {
+  let html = renderApp({todoItems: []});
+  expect(html.replace(/\s/g, '')).toEqual(`<ul></ul>`);
+});
