@@ -1,3 +1,11 @@
-import render from './day11/RadioChildren/main';
+import Search from './day15/Search';
 
-render();
+import ReactDOM from 'react-dom';
+import React from 'react';
+
+let div = document.createElement('div');
+if (document.body) {
+  document.body.appendChild(div);
+}
+
+ReactDOM.render(<Search />, div);

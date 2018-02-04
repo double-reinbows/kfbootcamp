@@ -52,7 +52,6 @@ export default class RadioGroups extends Component<Props, State> {
     this.setState(newState);
   };
   _radioButtons(choices: Array<string>) {
-    console.log('herp');
     return choices.map((item, index) => {
       return (
         <RadioButton key={index}>
@@ -65,12 +64,12 @@ export default class RadioGroups extends Component<Props, State> {
   render() {
     let {radioGroups} = this.state;
 
-    let _radioGroup = radioGroups.map((item) => {
-      console.log('derp');
+    let _radioGroup = radioGroups.map((item, index) => {
       return (
         <div>
           <h1>{item.name}</h1>
-          <RadioGroup name={item.name}>
+          <RadioGroup choices={item.choices} selectedIndex={item.selectedIndex}
+            name={item.name} radioGroupKey={index} onChange={this.radioButtonSelected}>
             {this._radioButtons(item.choices)}
           </RadioGroup>
           <div style={{height: 20}} />

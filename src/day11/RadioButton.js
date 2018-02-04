@@ -1,5 +1,6 @@
 // @flow
-import React from 'react';
+import React, {PropTypes} from 'react';
+// import RadioButton from './RadioButton';
 
 
 type Props = {
@@ -8,13 +9,19 @@ type Props = {
   // value: string,
   children?: string,
 };
+
 export default function RadioButton(props: Props) {
-  let {name, children} = props;
+  let {children} = props;
+  // {name, children}: props;
 
   return (
     <div>
-      <input type="radio" name={name} id={children}/>
+      <input type="radio" name={this.context.name} id={children}/>
       <label htmlFor={children}>{children}</label>
     </div>
   );
 }
+
+RadioButton.ContextTypes = {
+  name: PropTypes.string,
+};
