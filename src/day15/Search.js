@@ -77,12 +77,23 @@ export default class Search extends Component<Props, State> {
       newRender.push(init);
       this.setState({renderedArr: newRender});
       let json = await jsonProm;
+      // console.log('HERP', json);
       if (json) {
-        let newRender = Object.entries(json).map((item, i) => {
-          return (<li key={i}>{item[0]}{item[1]}</li>);
+        let newRender = Object.entries(json);
+
+        let list: Array<Object> = newRender.map((item, i) => {
+          if (typeof item[1] === 'number') {
+            let stringItem = item[1].toString();
+            return (<li key={i}>{item[0]} : {stringItem}</li>);
+          } else if (typeof item[1] === 'object') {
+            // console.log('HALO HALO');
+            let stringItem = JSON.stringify(item[1]);
+            return (<li key={i}>{item[0]} : {stringItem}</li>);
+          }
+          return (<li key={i}>{item[0]} : {item[1]}</li>);
         });
-        console.log(newRender);
-        this.setState({renderedArr: newRender});
+        console.log('HALO', list);
+        this.setState({renderedArr: list});
       } else {
         throw 'MAYDAY MAYDAY!';
       }
